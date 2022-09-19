@@ -4,6 +4,7 @@ import React from "react";
 function Post(props) {
   let [salvo1, setSalvo1] = React.useState(false);
   let [like, setLike] = React.useState(false);
+  let[numeroLike, setNumero] = React.useState(props.numero);
 
   function salvaPost() {
     if (salvo1 === false ){
@@ -19,10 +20,12 @@ function Post(props) {
 function likePost() {
     if (like === false ){
       setLike(true)
+      setNumero((Number(numeroLike) + 0.001).toFixed(3))
     }
   
     else if(like === true){
       setLike(false)
+      setNumero((Number(numeroLike) - 0.001).toFixed(3))
   
     } ;
   }
@@ -57,7 +60,7 @@ function likePost() {
           <img src={props.icon2} />
           <div class="texto">
             Curtido por <strong>{props.usuario}</strong> e{" "}
-            <strong>{props.numero}</strong>
+            <strong>outras {numeroLike} pessoas</strong>
           </div>
         </div>
       </div>
@@ -66,11 +69,8 @@ function likePost() {
 }
 
 
-// Function salvaPost1 e 2 Pararam de funcionar quando implementei o props
-
 export default function Posts() {
   
-  //let [salvo2, setSalvo2] = React.useState("bookmark-outline");
 
   const itens = [
     <Post
@@ -79,7 +79,8 @@ export default function Posts() {
       imagem="assets/img/gato-telefone.svg"
       icon2="assets/img/respondeai.svg"
       usuario="respondeai"
-      numero="outras 101.523 pessoas"
+      numero={101.523}
+    
     />,
     <Post
       icon="assets/img/barked.svg"
@@ -87,7 +88,7 @@ export default function Posts() {
       imagem="assets/img/dog.svg"
       icon2="assets/img/adorable_animals.svg"
       usuario="adorable_animals"
-      numero="outras 99.159 pessoas"
+      numero={99.159}
     />,
   ];
 
